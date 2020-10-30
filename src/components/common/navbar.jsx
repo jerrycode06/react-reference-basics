@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 class Navbar extends Component {
   state = {};
   render() {
+    const { currentUser } = this.props;
     return (
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <NavLink to="/" class="navbar-brand">
@@ -36,16 +37,34 @@ class Navbar extends Component {
                 Rentals
               </NavLink>
             </li>
-            <li className="nav-item">
-              <NavLink to="/login" className="nav-link" href="#">
-                Login
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink to="/register" className="nav-link" href="#">
-                Register
-              </NavLink>
-            </li>
+            {!currentUser && (
+              <React.Fragment>
+                <li className="nav-item">
+                  <NavLink to="/login" className="nav-link" href="#">
+                    Login
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink to="/register" className="nav-link" href="#">
+                    Register
+                  </NavLink>
+                </li>
+              </React.Fragment>
+            )}
+            {currentUser && (
+              <React.Fragment>
+                <li className="nav-item">
+                  <NavLink to="/profile" className="nav-link" href="#">
+                    {currentUser.name}
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink to="/logout" className="nav-link" href="#">
+                    Logout
+                  </NavLink>
+                </li>
+              </React.Fragment>
+            )}
           </ul>
         </div>
       </nav>
